@@ -1,3 +1,4 @@
 /Agent.class
 /bin/
 *.txt
+/target/
