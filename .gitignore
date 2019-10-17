@@ -2,4 +2,5 @@
 /bin/
 *.txt
 /pom.xml
+/.classpath
 /target/
