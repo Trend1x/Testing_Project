@@ -18,13 +18,14 @@ public class Agent{
 			@Override
 			public byte[] transform(ClassLoader classloader, String s, Class<?> someClass, ProtectionDomain protectionDomain, byte[] bytes)throws IllegalClassFormatException {
 				
-				if("class".contentEquals(s)) {
+				if(true) {
 					ClassReader cr = new ClassReader(bytes);
 					ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 					ClassTransformVisitor ca = new ClassTransformVisitor(cw);
 					cr.accept(ca, 0);
+					return cw.toByteArray();
 				}
-				return null;
+				return bytes;
 			}
 		});
 
