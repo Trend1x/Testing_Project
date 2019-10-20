@@ -18,7 +18,8 @@ public class Agent{
 			@Override
 			public byte[] transform(ClassLoader classloader, String s, Class<?> someClass, ProtectionDomain protectionDomain, byte[] bytes)throws IllegalClassFormatException {
 				
-				if(true) {
+				if(s.contentEquals("org.apache.commons.db\r\n" + 
+						"utils")) {
 					ClassReader cr = new ClassReader(bytes);
 					ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 					ClassTransformVisitor ca = new ClassTransformVisitor(cw);
