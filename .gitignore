@@ -1,6 +1,5 @@
 /Agent.class
 /bin/
 *.txt
-/pom.xml
 /.classpath
 /target/
