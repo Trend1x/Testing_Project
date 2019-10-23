@@ -11,7 +11,9 @@ public class TestingClassFileTransformer implements ClassFileTransformer{
 
 		public byte[] transform(ClassLoader classloader, String s, Class<?> someClass, ProtectionDomain protectionDomain, byte[] bytes)throws IllegalClassFormatException {
 			
-			if(true) {
+			System.out.println("Agent running");
+			
+			if(s.equals(s)){
 				ClassReader cr = new ClassReader(bytes);
 				ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 				ClassTransformVisitor ca = new ClassTransformVisitor(cw);
