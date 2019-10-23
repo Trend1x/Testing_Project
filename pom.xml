@@ -25,7 +25,7 @@
             <addClasspath>true</addClasspath>
          </manifest>
          <manifestEntries>
-            <Premain-Class>com.se4367.agents.agent</Premain-Class>
+            <Premain-Class>com.se4367.agents.Agent</Premain-Class>
             <Can-Retransform-Classes>true</Can-Retransform-Classes>
          </manifestEntries>
        </archive>

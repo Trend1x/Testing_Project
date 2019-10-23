@@ -22,16 +22,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
     	super.visitCode();
     }
-    
-    
-    //visit label
-    @Override
-    public void visitLabel(Label label) {
-    	mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-    	mv.visitLdcInsn("line " + line + "  executed");
-    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
-    	super.visitLabel(label);
-    }
+
     
     
     //visit line
