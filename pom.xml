@@ -22,7 +22,7 @@
    <configuration>
       <archive>
          <manifest>
-            <addClasspath>true</addClasspath>
+
          </manifest>
          <manifestEntries>
             <Premain-Class>com.se4367.agents.Agent</Premain-Class>
@@ -50,6 +50,16 @@
               		</goals>
             	</execution>
 			</executions>
+    	</plugin>
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-install-plugin</artifactId>
+    		<version>3.0.0-M1</version>
+    	</plugin>
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-deploy-plugin</artifactId>
+    		<version>3.0.0-M1</version>
     	</plugin>
     </plugins>
   </build>

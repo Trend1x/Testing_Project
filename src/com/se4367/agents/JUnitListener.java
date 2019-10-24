@@ -18,7 +18,8 @@ public class JUnitListener extends RunListener {
 
 	
     public void testRunStarted(Description description) throws Exception {
-    	
+    		
+
     	if (null == CoverageCollection.testCase_Coverages)
 		{
 			CoverageCollection.testCase_Coverages = new HashMap<String, HashMap<String, HashSet<Integer>>>();
@@ -27,16 +28,19 @@ public class JUnitListener extends RunListener {
     }
     
     public void testStarted(Description description) {
-    	
+    	System.out.println("test start");
     	CoverageCollection.testCase = "[TEST] " + description.getClassName() + ":" + description.getMethodName();
     	CoverageCollection.coverage = new HashMap<String, HashSet<Integer>>();
+    	
+    	System.out.println("this test added");
     }
 
-    public void testFinished(Result result) throws Exception {
+    public void testFinished(Description description) throws Exception {
+    	System.out.println("test finished");
     	CoverageCollection.testCase_Coverages.put(CoverageCollection.testCase, CoverageCollection.coverage);
     }
 
-    public void testRunFinished(Description description) throws Exception {
+    public void testRunFinished(Result result) throws Exception {
 
     	System.out.println("Testing Finished.\n\n");
         
