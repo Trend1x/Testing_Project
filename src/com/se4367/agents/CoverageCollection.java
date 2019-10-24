@@ -1,26 +1,29 @@
-package src.com.se4367.agents;
+package com.se4367.agents;
 
-import it.unimi.dsi.fastutil.ints.IntSet;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import java.util.HashMap; 
+import java.util.Map;
+import java.util.HashSet;
 
 public class CoverageCollection {
 	
-	public static Object2ObjectOpenHashMap<String, Object2ObjectOpenHashMap<String, IntSet>> testCase_Coverages;
-	public static Object2ObjectOpenHashMap<String, IntSet> coverage;
+	public static HashMap<String, HashMap<String, HashSet<Integer>>> testCase_Coverages;
+	public static HashMap<String, HashSet<Integer>> coverage;
 	public static String testCase;
+	
 	
 	public static void addMethodLine(String className, Integer line){
     	if (coverage == null) {
     		return;
     	}
     	
-    	IntSet lines = coverage.get(className);
+    	HashSet<Integer> lines = new HashSet<Integer>();
+    	lines = coverage.get(className);
         if (lines != null) {
         	lines.add(line);
         }
         else {
-        	lines = new IntOpenHashSet(new int[]{line});
+        	lines = new HashSet<Integer>();
+        	lines.add(line);
             coverage.put(className, lines);
         }
     }

@@ -8,6 +8,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 
 	String mName;
 	int line;
+	int lastVisitedLine;
 	
     public MethodTransformVisitor(final MethodVisitor mv, String name) {
         super(ASM5, mv);
@@ -27,10 +28,14 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     
     //visit line
     public void visitLineNumber(int linenumber, Label start) {
-    	mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-    	mv.visitLdcInsn("line " + linenumber + " executed");
-    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
-    	super.visitLineNumber(linenumber, start);
-    	line = linenumber;
+    	if (0 != line) {
+	    	lastVisitedLine = line;
+	    	
+			mv.visitLdcInsn(mName);
+			mv.visitLdcInsn(new Integer(line));
+			mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+			mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addMethodLine", "(Ljava/lang/String;Ljava/lang/Integer;)V", false);
+
+    	}
     }
 }	

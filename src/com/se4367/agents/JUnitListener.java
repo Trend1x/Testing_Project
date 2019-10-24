@@ -3,15 +3,16 @@ package com.se4367.agents;
 import java.io.*;
 import java.util.Arrays;
 
+import java.util.HashMap; 
+import java.util.Map;
+import java.util.HashSet;
+import java.util.Iterator;
+
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunListener;
-
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.ints.IntSet;
-import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
+
 
 public class JUnitListener extends RunListener {
 
@@ -20,7 +21,7 @@ public class JUnitListener extends RunListener {
     	
     	if (null == CoverageCollection.testCase_Coverages)
 		{
-			CoverageCollection.testCase_Coverages = new Object2ObjectOpenHashMap<String, Object2ObjectOpenHashMap<String, IntSet>>();
+			CoverageCollection.testCase_Coverages = new HashMap<String, HashMap<String, HashSet<Integer>>>();
 		}
     	System.out.println("Starting test...");
     }
@@ -28,7 +29,7 @@ public class JUnitListener extends RunListener {
     public void testStarted(Description description) {
     	
     	CoverageCollection.testCase = "[TEST] " + description.getClassName() + ":" + description.getMethodName();
-    	CoverageCollection.coverage = new Object2ObjectOpenHashMap<String, IntSet>();
+    	CoverageCollection.coverage = new HashMap<String, HashSet<Integer>>();
     }
 
     public void testFinished(Result result) throws Exception {
@@ -48,17 +49,18 @@ public class JUnitListener extends RunListener {
         for (String testCaseName : CoverageCollection.testCase_Coverages.keySet()) {
         	builder.append(testCaseName + "\n");
         	
-        	Object2ObjectOpenHashMap<String, IntSet> caseCoverage = 
+        	HashMap<String, HashSet<Integer>> caseCoverage = 
         			CoverageCollection.testCase_Coverages.get(testCaseName);
         	
             for (String className : caseCoverage.keySet()) {
-            	int[] lines = caseCoverage.get(className).toIntArray();
+            	HashSet<Integer> lines = caseCoverage.get(className);
             	
-            	Arrays.sort(lines);
-            	for (int i = 0; i < lines.length; i++) {
-                	builder.append(className + ":" + lines[i] + "\n");
+            	Iterator i = lines.iterator();
+            	while(i.hasNext()){
+                	builder.append(className + ":" + i.next() + "\n");
 				}
             }
+        }
     }
 
     public void testFailure(Failure failure) throws Exception {
