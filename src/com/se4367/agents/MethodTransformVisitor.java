@@ -27,7 +27,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
  */   
     
     //visit line
-    public void visitLineNumber(int linenumber, Label start) {
+    public void visitLineNumber(int line, Label start) {
     	if (0 != line) {
 	    	lastVisitedLine = line;
 	    	
