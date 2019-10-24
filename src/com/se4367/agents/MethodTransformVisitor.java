@@ -7,7 +7,6 @@ import org.objectweb.asm.Opcodes;
 class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 
 	String mName;
-	int line;
 	int lastVisitedLine;
 	
     public MethodTransformVisitor(final MethodVisitor mv, String name) {
