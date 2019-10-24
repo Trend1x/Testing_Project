@@ -16,7 +16,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     }
 
     // method coverage collection
-    @Override
+ /*   @Override
     public void visitCode(){
     	mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
     	mv.visitLdcInsn(mName+" executed");
@@ -24,7 +24,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     	super.visitCode();
     }
 
-    
+ */   
     
     //visit line
     public void visitLineNumber(int linenumber, Label start) {
@@ -32,7 +32,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 	    	lastVisitedLine = line;
 	    	
 			mv.visitLdcInsn(mName);
-			mv.visitLdcInsn(new Integer(line));
+			mv.visitLdcInsn(line);
 			mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
 			mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addMethodLine", "(Ljava/lang/String;Ljava/lang/Integer;)V", false);
 

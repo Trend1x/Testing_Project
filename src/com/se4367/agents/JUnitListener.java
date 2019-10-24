@@ -55,15 +55,17 @@ public class JUnitListener extends RunListener {
             for (String className : caseCoverage.keySet()) {
             	HashSet<Integer> lines = caseCoverage.get(className);
             	
-            	Iterator i = lines.iterator();
+            	Iterator<Integer> i = lines.iterator();
             	while(i.hasNext()){
                 	builder.append(className + ":" + i.next() + "\n");
 				}
             }
         }
+        bw.write(builder.toString());
+        bw.close();
     }
 
-    public void testFailure(Failure failure) throws Exception {
+ /*   public void testFailure(Failure failure) throws Exception {
         System.out.println("Failed: " + failure.getDescription().getMethodName());
     }
 
@@ -74,4 +76,4 @@ public class JUnitListener extends RunListener {
     public void testIgnored(Description description) throws Exception {
         System.out.println("Ignored: " + description.getMethodName());
     }
-}
+*/}
