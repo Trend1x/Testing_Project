@@ -13,7 +13,7 @@ public class TestingClassFileTransformer implements ClassFileTransformer{
 			
 
 			
-			if(s.equals(s)){
+			if(s.startsWith("org/apache/commons/dbutil") || s.startsWith("org/asciidoctor")){
 				ClassReader cr = new ClassReader(bytes);
 				ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
 				ClassTransformVisitor ca = new ClassTransformVisitor(cw);

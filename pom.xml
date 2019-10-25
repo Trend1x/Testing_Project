@@ -26,6 +26,7 @@
          </manifest>
          <manifestEntries>
             <Premain-Class>com.se4367.agents.Agent</Premain-Class>
+            <Can-Define-Classes>true</Can-Define-Classes>
             <Can-Retransform-Classes>true</Can-Retransform-Classes>
          </manifestEntries>
        </archive>
@@ -60,6 +61,27 @@
     		<groupId>org.apache.maven.plugins</groupId>
     		<artifactId>maven-deploy-plugin</artifactId>
     		<version>3.0.0-M1</version>
+    	</plugin>
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-shade-plugin</artifactId>
+    		<version>3.2.1</version>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>shade</goal>
+					</goals>
+					<configuration>
+						<relocations>
+							<relocation>
+								<pattern>org.ow2.asm</pattern>
+								<shadedPattern>agent.org.ow2.asm</shadedPattern>
+							</relocation>
+						</relocations>
+					</configuration>
+				</execution>
+			</executions>
     	</plugin>
     </plugins>
   </build>

@@ -36,5 +36,12 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 			mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addMethodLine", "(Ljava/lang/String;Ljava/lang/Integer;)V", false);
 
     	}
+    	super.visitLineNumber(line, start);
+    }
+    
+    @Override
+    public void visitEnd() 
+    {
+    	super.visitEnd();
     }
 }	
