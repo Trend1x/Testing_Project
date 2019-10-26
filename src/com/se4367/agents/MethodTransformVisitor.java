@@ -7,28 +7,15 @@ import org.objectweb.asm.Opcodes;
 class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 
 	String mName;
-	int lastVisitedLine;
 	
     public MethodTransformVisitor(final MethodVisitor mv, String name) {
         super(ASM5, mv);
         this.mName=name;
     }
-
-    // method coverage collection
- /*   @Override
-    public void visitCode(){
-    	mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-    	mv.visitLdcInsn(mName+" executed");
-    	mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
-    	super.visitCode();
-    }
-
- */   
     
-    //visit line
+    //visits line of code along the path of the called method and parameters
     public void visitLineNumber(int line, Label start) {
     	if (0 != line) {
-	    	lastVisitedLine = line;
 	    	
 			mv.visitLdcInsn(mName);
 			mv.visitLdcInsn(line);
@@ -39,6 +26,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     	super.visitLineNumber(line, start);
     }
     
+    //lets the visitor know they have reached the end of the method
     @Override
     public void visitEnd() 
     {

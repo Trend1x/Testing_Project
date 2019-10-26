@@ -1,22 +1,22 @@
 package com.se4367.agents;
 
 import java.io.*;
-import java.util.Arrays;
 
 import java.util.HashMap; 
-import java.util.Map;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import org.junit.runner.Description;
 import org.junit.runner.Result;
-import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
+
 
 
 public class JUnitListener extends RunListener {
 
-	
+	private static int i = 1;
+
     public void testRunStarted(Description description) throws Exception {
     		
 
@@ -24,20 +24,20 @@ public class JUnitListener extends RunListener {
 		{
 			CoverageCollection.testCase_Coverages = new HashMap<String, HashMap<String, HashSet<Integer>>>();
 		}
-    	System.out.println("Starting test...");
+    	System.out.println("Starting tests...");
     }
     
     public void testStarted(Description description) {
-    	System.out.println("test start");
-    	CoverageCollection.testCase = "[TEST] " + description.getClassName() + ":" + description.getMethodName();
-    	CoverageCollection.coverage = new HashMap<String, HashSet<Integer>>();
     	
-    	System.out.println("this test added");
+    	CoverageCollection.testCase = "[TEST] " + description.getClassName() + ":" + description.getMethodName() + ":" + i;
+    	CoverageCollection.coverage = new HashMap<String, HashSet<Integer>>();
+    	i++;
     }
 
     public void testFinished(Description description) throws Exception {
-    	System.out.println("test finished");
+    	
     	CoverageCollection.testCase_Coverages.put(CoverageCollection.testCase, CoverageCollection.coverage);
+
     }
 
     public void testRunFinished(Result result) throws Exception {
@@ -69,15 +69,13 @@ public class JUnitListener extends RunListener {
         bw.close();
     }
 
- /*   public void testFailure(Failure failure) throws Exception {
-        System.out.println("Failed: " + failure.getDescription().getMethodName());
+    public void testFailure(Failure failure) {
+    	CoverageCollection.testCase = "[TEST FAILED] " + failure.getDescription().getClassName() + ":" + failure.getDescription().getMethodName();
+    	CoverageCollection.testCase_Coverages.put(CoverageCollection.testCase, CoverageCollection.coverage);
     }
-
+    
     public void testAssumptionFailure(Failure failure) {
-        System.out.println("Failed: " + failure.getDescription().getMethodName());
+    	CoverageCollection.testCase = "[TEST ASSUMPTION FAILED] " + failure.getDescription().getClassName() + ":" + failure.getDescription().getMethodName();
+    	CoverageCollection.testCase_Coverages.put(CoverageCollection.testCase, CoverageCollection.coverage);
     }
-
-    public void testIgnored(Description description) throws Exception {
-        System.out.println("Ignored: " + description.getMethodName());
-    }
-*/}
+}
