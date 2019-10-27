@@ -54,4 +54,4 @@ Once the dependency and plugin have been added and saved, you will navigate to t
 mvn test
 ```
 
-The stmnt-cov.txt will be saved in the project's primary folder. 
+The stmnt-cov.txt will be saved in the project's primary directory. 
