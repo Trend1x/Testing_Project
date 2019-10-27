@@ -1,5 +1,5 @@
 # JUnit Test Coverage Collection SE4367.501 
-## By James Dixon, Quan Pham, and Erik Fraim
+## By James Dixon (Trend1x), Quan Pham (Quanicus), and Erik Fraim (shenrav)
 
 The project aims to collect the statement coverage of JUnit tests. The output coverage will show the tests that have been run as well as the statements visited. If a test happens to have a failure, assertion or otherwise, this will also be documented in the stmnt-cov.txt file. 
 
