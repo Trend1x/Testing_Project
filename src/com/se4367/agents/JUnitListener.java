@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.HashMap; 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import org.junit.runner.Description;
 import org.junit.runner.Result;
@@ -23,6 +24,7 @@ public class JUnitListener extends RunListener {
     	if (null == CoverageCollection.testCase_Coverages)
 		{
 			CoverageCollection.testCase_Coverages = new HashMap<String, HashMap<String, HashSet<Integer>>>();
+			//CoverageCollection.numLocal = new ArrayList<Integer>();
 		}
     	System.out.println("Starting tests...");
     }
@@ -43,7 +45,7 @@ public class JUnitListener extends RunListener {
     public void testRunFinished(Result result) throws Exception {
 
     	System.out.println("Testing Finished.\n\n");
-        
+        //System.out.println(CoverageCollection.numLocal);
         
         File fout = new File("stmt-cov.txt");
         FileOutputStream fos = new FileOutputStream(fout);
