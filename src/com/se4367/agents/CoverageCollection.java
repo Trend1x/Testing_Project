@@ -36,8 +36,11 @@ public class CoverageCollection {
     }
 	
 	public static void addVarCoverage(int index, Object localVar) {
-		
 		HashMap<Integer, ArrayList<Object>> varCoverage = localVar_Coverages.get(methodName);
+		if (varCoverage == null) {
+			varCoverage = new HashMap<Integer, ArrayList<Object>>();
+			localVar_Coverages.put(methodName, varCoverage);
+		}
 		ArrayList<Object> varValue = varCoverage.get(index);
 		if (varValue != null) {
 			varValue.add(localVar);
@@ -51,25 +54,28 @@ public class CoverageCollection {
 	
 	public static void setMethodName(String mName) {
 		methodName = mName;
+		/*if (localVar_Coverages.get(methodName) == null)
+			localVar_Coverages.put(methodName, null);*/
+			
 	}
 	public static void addLocalVar(int index, int local) {
-		//numLocal.add(local);
+		addVarCoverage(index, local);
 		System.out.println("Local integer variable: " + local);
 	}
 	public static void addLocalVar(int index, long local) {
-		//numLocal.add(local);
+		addVarCoverage(index, local);
 		System.out.println("Local Long variable: " + local);
 	}
 	public static void addLocalVar(int index, double local) {
-		//numLocal.add(local);
+		addVarCoverage(index, local);
 		System.out.println("Local double variable: " + local);
 	}
 	public static void addLocalVar(int index, float local) {
-		//numLocal.add(local);
+		addVarCoverage(index, local);
 		System.out.println("Local float variable: " + local);
 	}
 	public static void addLocalVar(int index, Object local) {
-		//numLocal.add(local);
+
 		if(local == null)
 			System.out.println("Local object variable: NULL");
 		else {

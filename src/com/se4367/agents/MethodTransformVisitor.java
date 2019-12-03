@@ -15,11 +15,12 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
         this.localIndex = new ArrayList<Integer>();
     }
     
-    /*public void visitCode() {
+    public void visitCode() {
     	//CoverageCollection.setMethodName(mName);
-    	//mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Object;)V", false);
+    	mv.visitLdcInsn(mName);
+    	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "setMethodName", "(Ljava/lang/String;)V", false);
     	super.visitCode();
-    }*/
+    }
     //visits line of code along the path of the called method and parameters
     public void visitLineNumber(int line, Label start) {
     	if (0 != line) {
@@ -49,6 +50,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     }*/
     
     public void visitVarInsn(int opcode, int var) {
+    	
         if (isLoadOp(opcode) && !(localIndex.contains(var))) {
         	localIndex.add(var);
             //mv.visitLdcInsn(var);
@@ -70,7 +72,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
             case LLOAD:
             case FLOAD:
             case DLOAD:
-            case ALOAD:
+            //case ALOAD:
                 return true;
             default:
                 return false;

@@ -21,11 +21,12 @@ public class JUnitListener extends RunListener {
     public void testRunStarted(Description description) throws Exception {
     		
 
-    	if (null == CoverageCollection.testCase_Coverages)
-		{
+    	if (null == CoverageCollection.testCase_Coverages){
 			CoverageCollection.testCase_Coverages = new HashMap<String, HashMap<String, HashSet<Integer>>>();
-			CoverageCollection.localVar_Coverages = new HashMap<String, HashMap<Integer, ArrayList<Object>>>();
 		}
+    	if (null == CoverageCollection.localVar_Coverages) {
+    		CoverageCollection.localVar_Coverages = new HashMap<String, HashMap<Integer, ArrayList<Object>>>();
+    	}
     	System.out.println("Starting tests...");
     }
     
@@ -64,6 +65,27 @@ public class JUnitListener extends RunListener {
             	while(i.hasNext()){
                 	builder.append(className + ":" + i.next() + "\n");
 				}
+            }
+        }
+        bw.write(builder.toString());
+        bw.close();
+        
+        fout = new File("local_vars.txt");
+        fos = new FileOutputStream(fout);
+        bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+        builder = new StringBuilder();
+        for (String methodName : CoverageCollection.localVar_Coverages.keySet()) {
+        	builder.append(methodName + "\n");
+        	
+        	HashMap<Integer, ArrayList<Object>> localVar = 
+        			CoverageCollection.localVar_Coverages.get(methodName);
+        	
+            for (Integer index : localVar.keySet()) {
+            	ArrayList<Object> Vars = localVar.get(index);
+            	
+            	builder.append("Index: " + index + "\n" + Vars + "\n");
+            	
             }
         }
         bw.write(builder.toString());
