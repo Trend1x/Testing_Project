@@ -52,9 +52,9 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
         if (isLoadOp(opcode) && !(localIndex.contains(var))) {
         	localIndex.add(var);
             //mv.visitLdcInsn(var);
-        	if(var != 0) {
-        		
-        		mv.visitVarInsn(opcode, var);   
+        	if(var != 0) {      
+        		mv.visitLdcInsn(var);  		
+        		mv.visitVarInsn(opcode, var);       		
         		extractLocalVar(opcode);
     			//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
                 //mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", getMethodDesc(opcode), false);
@@ -81,23 +81,23 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     	switch (opcode) {
         case ILOAD: 
         	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(I)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(II)V", false);
             break;
         case LLOAD: 
         	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;", false);	
-            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(J)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(IJ)V", false);
             break;
         case FLOAD: 
         	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Float", "valueOf", "(F)Ljava/lang/Float;", false);
-            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(F)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(IF)V", false);
             break;
         case DLOAD: 
         	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;", false);
-            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(D)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(ID)V", false);
             break;
         case ALOAD: 
         	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-        	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Object;)V", false);
+        	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(ILjava/lang/Object;)V", false);
             break;
         default:
             throw new RuntimeException("Invalid store code: " + opcode);

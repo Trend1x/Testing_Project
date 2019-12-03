@@ -52,23 +52,23 @@ public class CoverageCollection {
 	public static void setMethodName(String mName) {
 		methodName = mName;
 	}
-	public static void addLocalVar(int local) {
+	public static void addLocalVar(int index, int local) {
 		//numLocal.add(local);
 		System.out.println("Local integer variable: " + local);
 	}
-	public static void addLocalVar(long local) {
+	public static void addLocalVar(int index, long local) {
 		//numLocal.add(local);
 		System.out.println("Local Long variable: " + local);
 	}
-	public static void addLocalVar(double local) {
+	public static void addLocalVar(int index, double local) {
 		//numLocal.add(local);
 		System.out.println("Local double variable: " + local);
 	}
-	public static void addLocalVar(float local) {
+	public static void addLocalVar(int index, float local) {
 		//numLocal.add(local);
 		System.out.println("Local float variable: " + local);
 	}
-	public static void addLocalVar(Object local) {
+	public static void addLocalVar(int index, Object local) {
 		//numLocal.add(local);
 		if(local == null)
 			System.out.println("Local object variable: NULL");
