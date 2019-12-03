@@ -9,6 +9,9 @@ public class CoverageCollection {
 	public static HashMap<String, HashSet<Integer>> coverage;
 	public static String testCase;
 	
+	public static HashMap<String, HashMap<Integer, ArrayList<Object>>> localVar_Coverages;
+	//public static HashMap<Integer, ArrayList<Object>> localVar_Values;
+	public static String methodName;
 	
 	public static void addMethodLine(String className, Integer line){
     	//return if no test has been started
@@ -32,6 +35,23 @@ public class CoverageCollection {
         }
     }
 	
+	public static void addVarCoverage(int index, Object localVar) {
+		
+		HashMap<Integer, ArrayList<Object>> varCoverage = localVar_Coverages.get(methodName);
+		ArrayList<Object> varValue = varCoverage.get(index);
+		if (varValue != null) {
+			varValue.add(localVar);
+		}
+		else {
+			varValue = new ArrayList<Object>();
+			varValue.add(localVar);
+			varCoverage.put(index, varValue);
+		}
+	}
+	
+	public static void setMethodName(String mName) {
+		methodName = mName;
+	}
 	public static void addLocalVar(int local) {
 		//numLocal.add(local);
 		System.out.println("Local integer variable: " + local);

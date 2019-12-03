@@ -16,8 +16,8 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     }
     
     /*public void visitCode() {
-    	mv.visitVarInsn(ALOAD, 1);
-    	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Object;)V", false);
+    	//CoverageCollection.setMethodName(mName);
+    	//mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Object;)V", false);
     	super.visitCode();
     }*/
     //visits line of code along the path of the called method and parameters
@@ -53,7 +53,8 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
         	localIndex.add(var);
             //mv.visitLdcInsn(var);
         	if(var != 0) {
-        		mv.visitVarInsn(opcode, var);    
+        		
+        		mv.visitVarInsn(opcode, var);   
         		extractLocalVar(opcode);
     			//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
                 //mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", getMethodDesc(opcode), false);
@@ -83,7 +84,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
             mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(I)V", false);
             break;
         case LLOAD: 
-        	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;", false);
+        	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;", false);	
             mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(J)V", false);
             break;
         case FLOAD: 
@@ -95,6 +96,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
             mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(D)V", false);
             break;
         case ALOAD: 
+        	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
         	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Object;)V", false);
             break;
         default:

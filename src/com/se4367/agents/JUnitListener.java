@@ -24,6 +24,7 @@ public class JUnitListener extends RunListener {
     	if (null == CoverageCollection.testCase_Coverages)
 		{
 			CoverageCollection.testCase_Coverages = new HashMap<String, HashMap<String, HashSet<Integer>>>();
+			CoverageCollection.localVar_Coverages = new HashMap<String, HashMap<Integer, ArrayList<Object>>>();
 		}
     	System.out.println("Starting tests...");
     }
