@@ -60,30 +60,33 @@ public class CoverageCollection {
 	}
 	public static void addLocalVar(int index, int local) {
 		addVarCoverage(index, local);
-		System.out.println("Local integer variable: " + local);
+		//System.out.println("Local integer variable: " + local);
 	}
 	public static void addLocalVar(int index, long local) {
 		addVarCoverage(index, local);
-		System.out.println("Local Long variable: " + local);
+		//System.out.println("Local Long variable: " + local);
 	}
 	public static void addLocalVar(int index, double local) {
 		addVarCoverage(index, local);
-		System.out.println("Local double variable: " + local);
+		//System.out.println("Local double variable: " + local);
 	}
 	public static void addLocalVar(int index, float local) {
 		addVarCoverage(index, local);
-		System.out.println("Local float variable: " + local);
+		//System.out.println("Local float variable: " + local);
 	}
 	public static void addLocalVar(int index, Object local) {
 
 		if(local == null)
-			System.out.println("Local object variable: NULL");
+			//System.out.println("Local object variable: NULL");
+			addVarCoverage(index, "null");
 		else {
 			String localClass = local.getClass().getName();
 			if(localClass.equals("java.lang.String")) 
-				System.out.println("Local string variable:" + local);
+				//System.out.println("Local string variable:" + local);
+				addVarCoverage(index, local);
 			else
-				System.out.println("Local object variable: " + localClass);
+				return;
+				//System.out.println("Local object variable: " + localClass);
 		}			
 	}
 	
