@@ -52,7 +52,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
         if (isLoadOp(opcode) && !(localIndex.contains(var))) {
         	localIndex.add(var);
             //mv.visitLdcInsn(var);
-        	if(opcode != ALOAD) {
+        	if(var != 0) {
         		mv.visitVarInsn(opcode, var);    
         		extractLocalVar(opcode);
     			//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
@@ -79,20 +79,20 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
     private void extractLocalVar(int opcode) {
     	switch (opcode) {
         case ILOAD: 
-        	mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Integer;)V", false);
+        	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(I)V", false);
             break;
         case LLOAD: 
-        	mv.visitMethodInsn(INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;", false);
-            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Long;)V", false);
+        	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(J)V", false);
             break;
         case FLOAD: 
-        	mv.visitMethodInsn(INVOKESTATIC, "java/lang/Float", "valueOf", "(F)Ljava/lang/Float;", false);
-            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Float;)V", false);
+        	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Float", "valueOf", "(F)Ljava/lang/Float;", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(F)V", false);
             break;
         case DLOAD: 
-        	mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;", false);
-            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Double;)V", false);
+        	//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(D)V", false);
             break;
         case ALOAD: 
         	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", "(Ljava/lang/Object;)V", false);

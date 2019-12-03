@@ -8,7 +8,6 @@ public class CoverageCollection {
 	public static HashMap<String, HashMap<String, HashSet<Integer>>> testCase_Coverages;
 	public static HashMap<String, HashSet<Integer>> coverage;
 	public static String testCase;
-	public static ArrayList<Integer> numLocal;
 	
 	
 	public static void addMethodLine(String className, Integer line){
@@ -33,28 +32,33 @@ public class CoverageCollection {
         }
     }
 	
-	public static void printNumLocal(Integer local) {
-		System.out.println("Number of local variables: " + local);
-	}
-	public static void addLocalVar(Integer local) {
+	public static void addLocalVar(int local) {
 		//numLocal.add(local);
 		System.out.println("Local integer variable: " + local);
 	}
-	public static void addLocalVar(Long local) {
+	public static void addLocalVar(long local) {
 		//numLocal.add(local);
 		System.out.println("Local Long variable: " + local);
 	}
-	public static void addLocalVar(Double local) {
+	public static void addLocalVar(double local) {
 		//numLocal.add(local);
 		System.out.println("Local double variable: " + local);
 	}
-	public static void addLocalVar(Float local) {
+	public static void addLocalVar(float local) {
 		//numLocal.add(local);
 		System.out.println("Local float variable: " + local);
 	}
 	public static void addLocalVar(Object local) {
 		//numLocal.add(local);
-		System.out.println("Local object variable: " + local);
+		if(local == null)
+			System.out.println("Local object variable: NULL");
+		else {
+			String localClass = local.getClass().getName();
+			if(localClass.equals("java.lang.String")) 
+				System.out.println("Local string variable:" + local);
+			else
+				System.out.println("Local object variable: " + localClass);
+		}			
 	}
 	
 
