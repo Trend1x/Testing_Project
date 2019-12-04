@@ -82,11 +82,10 @@ public class CoverageCollection {
 		else {
 			String localClass = local.getClass().getName();
 			if(localClass.equals("java.lang.String")) 
-				//System.out.println("Local string variable:" + local);
 				addVarCoverage(index, local);
+				/*System.out.println("Local string variable:" + local);
 			else
-				return;
-				//System.out.println("Local object variable: " + localClass);
+				System.out.println("Local object variable: " + localClass);*/
 		}			
 	}
 	

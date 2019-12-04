@@ -87,7 +87,8 @@ public class JUnitListener extends RunListener {
             	builder.append("Index: " + index + "\n" + Vars + "\n");
             	
             }
-        }
+            builder.append("\n\n");
+        }        
         bw.write(builder.toString());
         bw.close();
     }
