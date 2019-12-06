@@ -9,7 +9,7 @@ public class CoverageCollection {
 	public static HashMap<String, HashSet<Integer>> coverage;
 	public static String testCase;
 	
-	public static HashMap<String, HashMap<Integer, ArrayList<Object>>> localVar_Coverages;
+	public static HashMap<String, HashMap<Integer, ArrayList<String>>> localVar_Coverages;
 	public static String methodName;
 	
 	public static void addMethodLine(String className, Integer line){
@@ -34,18 +34,18 @@ public class CoverageCollection {
         }
     }
 	
-	public static void addVarCoverage(int index, Object localVar) {
-		HashMap<Integer, ArrayList<Object>> varCoverage = localVar_Coverages.get(methodName);
+	public static void addVarCoverage(int index, String localVar) {
+		HashMap<Integer, ArrayList<String>> varCoverage = localVar_Coverages.get(methodName);
 		if (varCoverage == null) {
-			varCoverage = new HashMap<Integer, ArrayList<Object>>();
+			varCoverage = new HashMap<Integer, ArrayList<String>>();
 			localVar_Coverages.put(methodName, varCoverage);
 		}
-		ArrayList<Object> varValue = varCoverage.get(index);
+		ArrayList<String> varValue = varCoverage.get(index);
 		if (varValue != null) {
 			varValue.add(localVar);
 		}
 		else {
-			varValue = new ArrayList<Object>();
+			varValue = new ArrayList<String>();
 			varValue.add(localVar);
 			varCoverage.put(index, varValue);
 		}
@@ -53,10 +53,10 @@ public class CoverageCollection {
 	
 	public static void setMethodName(String mName) { methodName = mName; }
 	
-	public static void addLocalVar(int index, int    local) { addVarCoverage(index, local); }	
-	public static void addLocalVar(int index, long   local) { addVarCoverage(index, local); }
-	public static void addLocalVar(int index, double local) { addVarCoverage(index, local); }
-	public static void addLocalVar(int index, float  local) { addVarCoverage(index, local); }
+	public static void addLocalVar(int index, int    local) { addVarCoverage(index, Integer.toString(local)); }	
+	public static void addLocalVar(int index, long   local) { addVarCoverage(index, Long.toString(local)); }
+	public static void addLocalVar(int index, double local) { addVarCoverage(index, Double.toString(local)); }
+	public static void addLocalVar(int index, float  local) { addVarCoverage(index, Float.toString(local)); }
 	public static void addLocalVar(int index, Object local) {
 
 		if(local == null)

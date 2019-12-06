@@ -4,6 +4,8 @@ import java.io.*;
 
 import java.util.HashMap; 
 import java.util.HashSet;
+import java.util.TreeSet;
+import java.util.SortedSet;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -25,7 +27,7 @@ public class JUnitListener extends RunListener {
 			CoverageCollection.testCase_Coverages = new HashMap<String, HashMap<String, HashSet<Integer>>>();
 		}
     	if (null == CoverageCollection.localVar_Coverages) {
-    		CoverageCollection.localVar_Coverages = new HashMap<String, HashMap<Integer, ArrayList<Object>>>();
+    		CoverageCollection.localVar_Coverages = new HashMap<String, HashMap<Integer, ArrayList<String>>>();
     	}
     	System.out.println("Starting tests...");
     }
@@ -78,13 +80,16 @@ public class JUnitListener extends RunListener {
         for (String methodName : CoverageCollection.localVar_Coverages.keySet()) {
         	builder.append(methodName + "\n");
         	
-        	HashMap<Integer, ArrayList<Object>> localVar = 
+        	HashMap<Integer, ArrayList<String>> localVar = 
         			CoverageCollection.localVar_Coverages.get(methodName);
         	
             for (Integer index : localVar.keySet()) {
-            	ArrayList<Object> Vars = localVar.get(index);
-            	
-            	builder.append("Index: " + index + "\n" + Vars + "\n");
+            	ArrayList<String> vars = localVar.get(index);
+            	SortedSet<String> setVars = new TreeSet<String>();
+            	for (String localvar: vars) {
+            		setVars.add(localvar);
+            	}
+            	builder.append("Index: " + index + "\n" + vars + "\nSet: " + setVars + "\n");
             	
             }
             builder.append("\n\n");
