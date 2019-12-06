@@ -10,6 +10,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 	String mName;
 	String methodname;
 	String desc;
+	String stat;
 	boolean isStatic;
 	ArrayList<Integer> localIndex;
     public MethodTransformVisitor(final MethodVisitor mv, String name, String methodname, String desc, int access) {
@@ -18,12 +19,16 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
         this.methodname = methodname;
         this.desc = desc;
         this.isStatic = (access & Opcodes.ACC_STATIC) != 0;
+        if (isStatic)
+        	stat = "Static";
+        else
+        	stat = "Nonstatic";	
         this.localIndex = new ArrayList<Integer>();
     }
     
     public void visitCode() {
     	//CoverageCollection.setMethodName(mName);
-    	mv.visitLdcInsn(mName + "\n" + isStatic + "\n" + methodname + " " + desc);
+    	mv.visitLdcInsn(mName + "\n" + stat +" " + methodname + " " + desc);
     	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "setMethodName", "(Ljava/lang/String;)V", false);
     	super.visitCode();
     }
