@@ -10,18 +10,20 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 	String mName;
 	String methodname;
 	String desc;
+	boolean isStatic;
 	ArrayList<Integer> localIndex;
-    public MethodTransformVisitor(final MethodVisitor mv, String name, String methodname, String desc) {
+    public MethodTransformVisitor(final MethodVisitor mv, String name, String methodname, String desc, int access) {
         super(ASM5, mv);
         this.mName=name;
         this.methodname = methodname;
         this.desc = desc;
+        this.isStatic = (access & Opcodes.ACC_STATIC) != 0;
         this.localIndex = new ArrayList<Integer>();
     }
     
     public void visitCode() {
     	//CoverageCollection.setMethodName(mName);
-    	mv.visitLdcInsn(mName + "\n" +methodname + " " + desc);
+    	mv.visitLdcInsn(mName + "\n" + isStatic + "\n" + methodname + " " + desc);
     	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "setMethodName", "(Ljava/lang/String;)V", false);
     	super.visitCode();
     }
@@ -58,10 +60,10 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
         if (isLoadOp(opcode) && !(localIndex.contains(var))) {
         	localIndex.add(var);
             //mv.visitLdcInsn(var);
-        	if(var != 0) {
-        	mv.visitLdcInsn(var);  		
-        	mv.visitVarInsn(opcode, var);       		
-       		extractLocalVar(opcode);
+        	if(var != 0 || isStatic) {
+        		mv.visitLdcInsn(var);  		
+        		mv.visitVarInsn(opcode, var);       		
+        		extractLocalVar(opcode);
     		//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
             //mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", getMethodDesc(opcode), false);
         	}
