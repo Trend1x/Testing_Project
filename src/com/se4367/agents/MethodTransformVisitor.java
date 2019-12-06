@@ -8,16 +8,20 @@ import org.objectweb.asm.Opcodes;
 class MethodTransformVisitor extends MethodVisitor implements Opcodes {
 
 	String mName;
+	String methodname;
+	String desc;
 	ArrayList<Integer> localIndex;
-    public MethodTransformVisitor(final MethodVisitor mv, String name) {
+    public MethodTransformVisitor(final MethodVisitor mv, String name, String methodname, String desc) {
         super(ASM5, mv);
         this.mName=name;
+        this.methodname = methodname;
+        this.desc = desc;
         this.localIndex = new ArrayList<Integer>();
     }
     
     public void visitCode() {
     	//CoverageCollection.setMethodName(mName);
-    	mv.visitLdcInsn(mName);
+    	mv.visitLdcInsn(mName + "\n" +methodname + " " + desc);
     	mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "setMethodName", "(Ljava/lang/String;)V", false);
     	super.visitCode();
     }
@@ -54,14 +58,13 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
         if (isLoadOp(opcode) && !(localIndex.contains(var))) {
         	localIndex.add(var);
             //mv.visitLdcInsn(var);
-        	if(var != 0) {      
-        		mv.visitLdcInsn(var);  		
-        		mv.visitVarInsn(opcode, var);       		
-        		extractLocalVar(opcode);
-    			//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
-                //mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", getMethodDesc(opcode), false);
+        	if(var != 0) {
+        	mv.visitLdcInsn(var);  		
+        	mv.visitVarInsn(opcode, var);       		
+       		extractLocalVar(opcode);
+    		//mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+            //mv.visitMethodInsn(INVOKESTATIC, "com/se4367/agents/CoverageCollection", "addLocalVar", getMethodDesc(opcode), false);
         	}
-        	
         }
         super.visitVarInsn(opcode, var);
     }
