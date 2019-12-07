@@ -65,7 +65,7 @@ class MethodTransformVisitor extends MethodVisitor implements Opcodes {
             case LLOAD:
             case FLOAD:
             case DLOAD:
-            //case ALOAD:
+            case ALOAD:
                 return true;
             default:
                 return false;
