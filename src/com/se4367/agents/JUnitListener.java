@@ -84,11 +84,13 @@ public class JUnitListener extends RunListener {
         			CoverageCollection.localVar_Coverages.get(methodName);
         	
             for (Integer index : localVar.keySet()) {
+            	
             	ArrayList<String> vars = localVar.get(index);
             	SortedSet<String> setVars = new TreeSet<String>();
-            	for (String localvar: vars) {
-            		setVars.add(localvar);
-            	}
+            	
+            	for (String localvar: vars) 
+            			setVars.add(localvar);
+            	
             	builder.append("Index: " + index + "\n" + vars + "\nSet: " + setVars + "\n");
             	
             }
