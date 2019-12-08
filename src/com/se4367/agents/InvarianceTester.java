@@ -4,10 +4,25 @@ import java.util.*;
 
 public class InvarianceTester {
 	
+	private static ArrayList<String> localVar;
+
+	//Constructor 
+	// ?? use constructor as landing pad to check all the patterns??
+	public InvarianceTester(ArrayList<String> lv){
+		localVar = lv;
+		//System.out.println("InvarianaceTester called."); //debug line to verify execution
+	}
+	
 	//Single Variables
 	//check to see if the variable is always a constant value
-	public static void constantValue(ArrayList<?> objs) {
-		
+	public String constantValue() {
+		String first = localVar.get(0);
+		for(String e : localVar){
+			if(!e.equals(first)){
+				return "Not Constant Value";
+			}
+		}
+		return "Possible Constant Value";
 	}
 	
 	//Uninitialized Value, has the variable been initialized or is it NULL

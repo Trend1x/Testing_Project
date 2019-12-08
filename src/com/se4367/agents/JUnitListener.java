@@ -14,6 +14,8 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
+import src.com.se4367.agents.InvarianceTester;
+
 
 
 public class JUnitListener extends RunListener {
@@ -85,19 +87,25 @@ public class JUnitListener extends RunListener {
         	
             for (Integer index : localVar.keySet()) {
             	
-            	ArrayList<String> vars = localVar.get(index);
+                ArrayList<String> vars = localVar.get(index);
+                ArrayList<String> invariants = new ArrayList();
             	SortedSet<String> setVars = new TreeSet<String>();
-            	
+                InvarianceTester iTester = new InvarianceTester(vars);
+                
             	for (String localvar: vars) 
             			setVars.add(localvar);
-            	
-            	builder.append("Index: " + index + "\n" + vars + "\nSet: " + setVars + "\n");
+            	invariants.add(iTester.constantValue());
+            	builder.append("Index: " + index + "\n" + vars + "\nSet: " + setVars + "\n" + invariants + "\n");
             	
             }
             builder.append("\n\n");
+            //Calling InvarianceTester for each method
+            
         }        
         bw.write(builder.toString());
         bw.close();
+
+
     }
 
     public void testFailure(Failure failure) {
