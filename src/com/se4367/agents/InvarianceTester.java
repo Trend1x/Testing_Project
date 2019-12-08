@@ -4,7 +4,7 @@ import java.util.*;
 
 public class InvarianceTester {
 	
-	private static SortedSet<String> localVar;
+	private static TreeSet<String> localVar;
 	private HashMap<String, ArrayList<String>> invariantPatterns;
 
 	//Constructor 
@@ -23,16 +23,16 @@ public class InvarianceTester {
 	}
 	
 	//Uninitialized Value, has the variable been initialized or is it NULL
-	public String uninitialized() {
-		if(localVar.first() == null){
-			return "Uninitialized";
+	public void uninitialized() {
+		if(localVar.size() == 1 && localVar.first().equals("null")){
+			invariantPatterns.put("Uninitialized pattern", localVar);
 		}
-		return "Initialized";
 	}
 	
 	//is the variable a part of a small set
 	public static void smallSet() {
-		
+		if(localVar.size() <= 10)
+			invariantPatterns.put("Small set pattern", localVar);
 	}
 	
 	
@@ -44,7 +44,10 @@ public class InvarianceTester {
 	
 	//Is the value always non-zero
 	public static void nonZero() {
-		
+		if !(localVar.contains("0")) {
+			invariantPatterns.put("Non-zero pattern", localVar);
+		}
+			
 	}
 	
 	//Is the variable x == a mod(b) or is x != a mod(b)
