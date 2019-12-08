@@ -17,6 +17,7 @@ public class InvarianceTester {
 		uninitialized();
 		smallSet();
 		nonZero();
+		inRange();
 	}
 	
 	public ArrayList<String> getPatterns(){
@@ -48,6 +49,13 @@ public class InvarianceTester {
 	//Does the variable always fall within a range between x and y
 	public void inRange() {
 		
+		if(isAllNum() && localVar.size() > 1) {
+			SortedSet<Double> range = new TreeSet<Double>();
+			for(String var: localVar) {
+				range.add(Double.valueOf(var));
+			}
+			invariantPatterns.add("Range: [" + range.first() + ", " + range.last() + "]");			
+		}		
 	}
 	
 	//Is the value always non-zero
@@ -63,6 +71,13 @@ public class InvarianceTester {
 		
 	}
 	
+	public boolean isAllNum() {
+		for(String var: localVar) {
+			if(var.equals("null") || var.equals("Object"))
+				return false;				
+		}
+		return true;
+	}
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		
@@ -72,9 +87,4 @@ public class InvarianceTester {
 		}
 		return output.toString();
 	}
-	
-	
-	
-	
-
 }
