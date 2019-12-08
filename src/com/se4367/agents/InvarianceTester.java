@@ -52,7 +52,7 @@ public class InvarianceTester {
 	
 	//Is the value always non-zero
 	public void nonZero() {
-		if (!(localVar.contains("0")) && !(localVar.size() ==1 && localVar.get(0) == "null")) {
+		if (!(localVar.contains("0")) && !(localVar.size() ==1 && localVar.first() == "null")) {
 			invariantPatterns.add("Non-zero pattern");
 		}
 			
