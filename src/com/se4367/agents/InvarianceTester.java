@@ -26,7 +26,7 @@ public class InvarianceTester {
 	//check to see if the variable is always a constant value
 	public  void constantValue() {
 		if(localVar.size() == 1){
-			invariantPatterns.add("Constant value pattern");
+			invariantPatterns.add("Constant value pattern" + localVar);
 		}
 	}
 	
