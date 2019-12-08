@@ -44,7 +44,7 @@ public class InvarianceTester {
 	
 	//Is the value always non-zero
 	public static void nonZero() {
-		if !(localVar.contains("0")) {
+		if (!(localVar.contains("0"))) {
 			invariantPatterns.put("Non-zero pattern", localVar);
 		}
 			
