@@ -5,15 +5,19 @@ import java.util.*;
 public class InvarianceTester {
 	
 	private static TreeSet<String> localVar;
-	private HashMap<String, ArrayList<String>> invariantPatterns;
+	private HashMap<String, TreeSet<String>> invariantPatterns;
 
 	//Constructor 
 	// ?? use constructor as landing pad to check all the patterns??
 	public InvarianceTester(SortedSet<String> lv){
 		localVar = lv;
+		invariantPatterns = new HashMap<String, TreeSet<String>>();
 		//System.out.println("InvarianaceTester called."); //debug line to verify execution
 	}
 	
+	public HashMap<String, TreeSet<String>> getPatterns(){
+		return invariantPatterns();
+	}
 	//Single Variables
 	//check to see if the variable is always a constant value
 	public void constantValue() {
