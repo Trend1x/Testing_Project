@@ -1,7 +1,7 @@
-# JUnit Test Coverage Collection SE4367.501 
+# JUnit Test Invariant Detection based on the Daikon method SE4367.501 
 ## By James Dixon (Trend1x), Quan Pham (Quanicus), and Erik Fraim (shenrav)
 
-The project aims to collect the statement coverage of JUnit tests. The output coverage will show the tests that have been run as well as the statements visited. If a test happens to have a failure, assertion or otherwise, this will also be documented in the stmnt-cov.txt file. 
+The project aims to detect the possible invariants to that could be later used as testing oracles. The output coverage will show the tests run, the method being executed, the value of the variables at the start of execution for each test case, the set tha covers the variables, and the candidate invariant pattern. This is all documented and output into a file named local_vars.txt.
 
 ## Getting Started
  Before compiling the Jar you will need to add the package path of the project our program will be run against to the 
@@ -54,4 +54,4 @@ Once the dependency and plugin have been added and saved, you will navigate to t
 mvn test
 ```
 
-The stmnt-cov.txt will be saved in the project's primary directory. 
+The stmnt-cov.txt and local_vars.txt will be saved in the project's primary directory. 
