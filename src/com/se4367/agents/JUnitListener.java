@@ -90,11 +90,12 @@ public class JUnitListener extends RunListener {
                 ArrayList<String> vars = localVar.get(index);
                 ArrayList<String> invariants = new ArrayList();
             	SortedSet<String> setVars = new TreeSet<String>();
-                InvarianceTester iTester = new InvarianceTester(vars);
+                InvarianceTester iTester = new InvarianceTester(setVars);
                 
             	for (String localvar: vars) 
             			setVars.add(localvar);
-            	invariants.add(iTester.constantValue());
+                invariants.add(iTester.constantValue());
+                invariants.add(iTester.uninitialized());
             	builder.append("Index: " + index + "\n" + vars + "\nSet: " + setVars + "\n" + invariants + "\n");
             	
             }

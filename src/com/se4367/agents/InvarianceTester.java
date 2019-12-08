@@ -4,11 +4,11 @@ import java.util.*;
 
 public class InvarianceTester {
 	
-	private static ArrayList<String> localVar;
+	private static SortedSet<String> localVar;
 
 	//Constructor 
 	// ?? use constructor as landing pad to check all the patterns??
-	public InvarianceTester(ArrayList<String> lv){
+	public InvarianceTester(SortedSet<String> lv){
 		localVar = lv;
 		//System.out.println("InvarianaceTester called."); //debug line to verify execution
 	}
@@ -16,39 +16,40 @@ public class InvarianceTester {
 	//Single Variables
 	//check to see if the variable is always a constant value
 	public String constantValue() {
-		String first = localVar.get(0);
-		for(String e : localVar){
-			if(!e.equals(first)){
-				return "Not Constant Value";
-			}
+		if(localVar.size() == 1){
+			return "Possible Constant Value";
 		}
-		return "Possible Constant Value";
+		
+		return "Not Constant Value";
 	}
 	
 	//Uninitialized Value, has the variable been initialized or is it NULL
-	public static void uninitialized(ArrayList<?> objs) {
-		
+	public String uninitialized() {
+		if(localVar.first() == null){
+			return "Uninitialized";
+		}
+		return "Initialized";
 	}
 	
 	//is the variable a part of a small set
-	public static void smallSet(ArrayList<?> objs) {
+	public static void smallSet() {
 		
 	}
 	
 	
 	//Single Numeric Variables
 	//Does the variable always fall within a range between x and y
-	public static void inRange(ArrayList<?> objs) {
+	public static void inRange() {
 		
 	}
 	
 	//Is the value always non-zero
-	public static void nonZero(ArrayList<?> objs) {
+	public static void nonZero() {
 		
 	}
 	
 	//Is the variable x == a mod(b) or is x != a mod(b)
-	public static void modulus(ArrayList<?> objs) {
+	public static void modulus() {
 		
 	}
 	
