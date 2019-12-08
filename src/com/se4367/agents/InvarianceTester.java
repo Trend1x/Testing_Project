@@ -4,61 +4,74 @@ import java.util.*;
 
 public class InvarianceTester {
 	
-	private static TreeSet<String> localVar;
-	private HashMap<String, TreeSet<String>> invariantPatterns;
+	private SortedSet<String> localVar;
+	private ArrayList<String> invariantPatterns;
 
 	//Constructor 
 	// ?? use constructor as landing pad to check all the patterns??
 	public InvarianceTester(SortedSet<String> lv){
 		localVar = lv;
-		invariantPatterns = new HashMap<String, TreeSet<String>>();
+		invariantPatterns = new ArrayList<String>();
 		//System.out.println("InvarianaceTester called."); //debug line to verify execution
+		constantValue();
+		uninitialized();
+		smallSet();
+		nonZero();
 	}
 	
-	public HashMap<String, TreeSet<String>> getPatterns(){
-		return invariantPatterns();
+	public ArrayList<String> getPatterns(){
+		return invariantPatterns;
 	}
 	//Single Variables
 	//check to see if the variable is always a constant value
-	public void constantValue() {
+	public  void constantValue() {
 		if(localVar.size() == 1){
-			invariantPatterns.put("Constant value pattern", localVar);
+			invariantPatterns.add("Constant value pattern");
 		}
 	}
 	
 	//Uninitialized Value, has the variable been initialized or is it NULL
 	public void uninitialized() {
 		if(localVar.size() == 1 && localVar.first().equals("null")){
-			invariantPatterns.put("Uninitialized pattern", localVar);
+			invariantPatterns.add("Uninitialized pattern");
 		}
 	}
 	
 	//is the variable a part of a small set
-	public static void smallSet() {
+	public void smallSet() {
 		if(localVar.size() <= 10)
-			invariantPatterns.put("Small set pattern", localVar);
+			invariantPatterns.add("Small set pattern" + localVar);
 	}
 	
 	
 	//Single Numeric Variables
 	//Does the variable always fall within a range between x and y
-	public static void inRange() {
+	public void inRange() {
 		
 	}
 	
 	//Is the value always non-zero
-	public static void nonZero() {
+	public void nonZero() {
 		if (!(localVar.contains("0"))) {
-			invariantPatterns.put("Non-zero pattern", localVar);
+			invariantPatterns.add("Non-zero pattern");
 		}
 			
 	}
 	
 	//Is the variable x == a mod(b) or is x != a mod(b)
-	public static void modulus() {
+	public void modulus() {
 		
 	}
 	
+	public String toString() {
+		StringBuilder output = new StringBuilder();
+		
+		output.append("Candidate invariant patterns:\n");
+		for(String pattern: invariantPatterns) {
+			output.append(pattern + "\n");
+		}
+		return output.toString();
+	}
 	
 	
 	

@@ -88,18 +88,20 @@ public class JUnitListener extends RunListener {
             for (Integer index : localVar.keySet()) {
             	
                 ArrayList<String> vars = localVar.get(index);
-                ArrayList<String> invariants = new ArrayList();
-            	SortedSet<String> setVars = new TreeSet<String>();
-                InvarianceTester iTester = new InvarianceTester(setVars);
+                //ArrayList<String> invariants = new ArrayList();
+            	SortedSet<String> setVars = new TreeSet<String>();            
                 
             	for (String localvar: vars) 
             			setVars.add(localvar);
-                invariants.add(iTester.constantValue());
-                invariants.add(iTester.uninitialized());
-            	builder.append("Index: " + index + "\n" + vars + "\nSet: " + setVars + "\n" + invariants + "\n");
+            	
+            	InvarianceTester iTester = new InvarianceTester(setVars);
+                //invariants.add(iTester.constantValue());
+                //invariants.add(iTester.uninitialized());
+            	builder.append("Index: " + index + "\n" + vars + "\nSet: " + setVars + "\n");
+            	builder.append(iTester + "\n");
             	
             }
-            builder.append("\n\n");
+            builder.append("\n\n\n");
             //Calling InvarianceTester for each method
             
         }        
