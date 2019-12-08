@@ -5,6 +5,7 @@ import java.util.*;
 public class InvarianceTester {
 	
 	private static SortedSet<String> localVar;
+	private HashMap<String, ArrayList<String>> invariantPatterns;
 
 	//Constructor 
 	// ?? use constructor as landing pad to check all the patterns??
@@ -15,12 +16,10 @@ public class InvarianceTester {
 	
 	//Single Variables
 	//check to see if the variable is always a constant value
-	public String constantValue() {
+	public void constantValue() {
 		if(localVar.size() == 1){
-			return "Possible Constant Value";
+			invariantPatterns.put("Constant value pattern", localVar);
 		}
-		
-		return "Not Constant Value";
 	}
 	
 	//Uninitialized Value, has the variable been initialized or is it NULL
